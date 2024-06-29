@@ -1,14 +1,9 @@
 const express = require("express");
 const {
-  scrapeAbbWebsite,
-  scrapeShintGlobalWebsite,
-  getAllProducts,
+  scrapeChintGloablWebsite,
 } = require("../controllers/scrapingController");
 const scrappingRouter = express.Router();
 
-scrappingRouter.post("/chintglobal", scrapeShintGlobalWebsite);
-scrappingRouter.post("/abb", scrapeAbbWebsite);
-
-scrappingRouter.get("/all", getAllProducts);
+scrappingRouter.post("/chintglobal", scrapeChintGloablWebsite);
 
 module.exports = scrappingRouter;

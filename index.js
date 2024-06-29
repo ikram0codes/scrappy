@@ -25,47 +25,22 @@ dbConnect();
 app.listen(process.env.PORT, () => {
   console.log(`Server has been Started on port: ${process.env.PORT}`);
 });
-const puppeteer = require("puppeteer-extra");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-
-// puppeteer.use(StealthPlugin());
 
 // const main = async () => {
 //   try {
-//     let url = "https://www.se.com/sg/en/all-products";
+//     let url =
+//       "https://www.se.com/sg/en/product-range/61088-acti-9-c120/?parent-subcategory-id=1605";
 //     console.log(url);
 
 //     let browser = await puppeteer.launch({
-//       executablePath:
-//         "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-//       headless: false, // Set to false to see the browser interaction
+//       executablePath: executablePath(),
+//       // "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+//       headless: true, // Set to false to see the browser interaction
 //       args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-http2"],
 //       timeout: 300000, // Increase timeout to 5 minutes
 //     });
 
 //     const page = await browser.newPage();
-//     await page.setUserAgent(
-//       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-//     );
-
-//     await page.setRequestInterception(true);
-//     page.on("request", (request) => {
-//       if (
-//         ["image", "stylesheet", "font", "media"].includes(
-//           request.resourceType()
-//         )
-//       ) {
-//         request.abort();
-//       } else {
-//         request.continue();
-//       }
-//     });
-
-//     await page.evaluateOnNewDocument(() => {
-//       Object.defineProperty(navigator, "webdriver", {
-//         get: () => false,
-//       });
-//     });
 
 //     await page.goto(url, {
 //       waitUntil: ["domcontentloaded", "networkidle2"],
@@ -73,19 +48,28 @@ const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 //     });
 
 //     // Optional: Wait for a specific selector if needed
-//     await page.waitForSelector(".card__title", {
+//     await page.waitForSelector("pes-range-main", {
 //       timeout: 10000000,
 //     });
-
 //     // Scraping Data from the Page
 //     let data = await page.evaluate(() => {
-//       const data = document.querySelector(".card__title").innerHTML;
-
+//       const mainRoot = document.querySelector("pes-range-main").shadowRoot;
+//       let secondRoot = mainRoot.querySelector("pes-range-info").shadowRoot;
 //       // Example: Extracting specific values from shadow DOM
-//       return data;
+//       let name = secondRoot.querySelector("h1").textContent;
+//       let description = secondRoot.querySelector(
+//         "div.range-info__description"
+//       ).textContent;
+//       let image = secondRoot.querySelector("img").src;
+//       let mainImage = image;
+//       let sideImage1 = image;
+//       let sideImage2 = image;
+
+//       return { name, description, mainImage, sideImage1, sideImage2 };
+//       return { image };
 //     });
 
-//     console.log("Data from shadow DOM:", data);
+//     console.log(data);
 
 //     await browser.close();
 //   } catch (error) {
